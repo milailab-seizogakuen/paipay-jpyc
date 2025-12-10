@@ -22,12 +22,21 @@ export const COMMUNITY_CONFIG = {
   // セキュリティ設定
   security: {
     // 本番環境では必ずtrueにする
+<<<<<<< HEAD
     requirePIN: true, // ✅ 本番ではtrue
     pinLength: 6,
     // 開発用ニーモニック表示（本番では必ずfalse）
     showMnemonicInUI: false, // ✅ 本番ではfalse
     // 強力な暗号化を使用（本番では必ずtrue）
     useStrongEncryption: true, // ✅ 本番ではtrue
+=======
+    requirePIN: false, // 開発中はfalse、本番ではtrue
+    pinLength: 6,
+    // 開発用ニーモニック表示（本番では必ずfalse）
+    showMnemonicInUI: true, // 開発中はtrue、本番ではfalse
+    // 強力な暗号化を使用（本番では必ずtrue）
+    useStrongEncryption: false, // 開発中はfalse、本番ではtrue
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
   },
 
   // ネットワーク設定

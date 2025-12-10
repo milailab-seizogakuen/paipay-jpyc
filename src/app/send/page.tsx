@@ -6,7 +6,10 @@ import { loadWallet } from '@/lib/keystore/storage';
 import { getMaticBalance, getTransactionHistory } from '@/lib/polygon/client';
 import { getJpycBalance, sendJpyc } from '@/lib/polygon/jpyc';
 import QRScanner from '@/components/QRScannerWrapper';
+<<<<<<< HEAD
 import { decryptSessionMnemonic, isSessionValid } from '@/lib/crypto/session-crypto';
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
 interface SendResult {
   success: boolean;
@@ -45,6 +48,7 @@ export default function SendPage() {
         return;
       }
 
+<<<<<<< HEAD
       // ✅ セッションの有効性チェック
       if (!isSessionValid()) {
         router.push('/pin-lock');
@@ -56,6 +60,14 @@ export default function SendPage() {
 
       if (!mnemonic) {
         console.warn('Failed to decrypt mnemonic');
+=======
+      // mnemonicをsessionStorageから取得
+      const mnemonic = sessionStorage.getItem('wallet_mnemonic');
+
+      if (!mnemonic) {
+        // mnemonicがない場合、送金はできないが残高表示はできる
+        console.warn('mnemonic not found in sessionStorage');
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         setWallet({
           address,
           secretKey: new Uint8Array(),
@@ -73,7 +85,11 @@ export default function SendPage() {
       const polBalance = await getMaticBalance(address);
       setBalance({ jpyc: jpycBalance, pol: polBalance });
     } catch (error) {
+<<<<<<< HEAD
       console.error('Failed to load wallet');
+=======
+      console.error('Failed to load wallet:', error);
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
     }
   };
 
@@ -92,6 +108,7 @@ export default function SendPage() {
     }
 
     if (!balance || amountNum > balance.jpyc) {
+<<<<<<< HEAD
       alert('JPYC残高が不足しています');
       return;
     }
@@ -104,6 +121,9 @@ export default function SendPage() {
         `推奨残高: 0.001 POL以上\n\n` +
         `POLを入手してから再度お試しください。`
       );
+=======
+      alert('残高が不足しています');
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
       return;
     }
 
@@ -200,6 +220,7 @@ export default function SendPage() {
           <h1 className="text-2xl font-bold text-gray-800">P2P送金</h1>
         </div>
 
+<<<<<<< HEAD
         {/* POL残高不足の警告 */}
         {balance && balance.pol < 0.001 && (
           <div className="rounded-2xl p-4 mb-6 bg-yellow-50 border border-yellow-200">
@@ -217,6 +238,8 @@ export default function SendPage() {
           </div>
         )}
 
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         {/* 結果表示 */}
         {result && (
           <div className={`rounded-2xl p-6 mb-6 text-center ${result.success
@@ -365,7 +388,11 @@ export default function SendPage() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-lg"
                 />
                 <div className="absolute right-4 top-3 text-gray-500 text-sm">
+<<<<<<< HEAD
                   JPYC
+=======
+                  PAC
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
                 </div>
               </div>
               <button
@@ -393,7 +420,11 @@ export default function SendPage() {
             {/* 送金ボタン */}
             <button
               onClick={handleShowConfirm}
+<<<<<<< HEAD
               disabled={!toAddress || !amount || !balance || balance.pol < 0.001}
+=======
+              disabled={!toAddress || !amount}
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
               className="w-full bg-red-500 text-white px-6 py-4 rounded-xl font-bold hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               確認画面へ

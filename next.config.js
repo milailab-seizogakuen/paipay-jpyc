@@ -9,6 +9,7 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   reactStrictMode: true,
+<<<<<<< HEAD
 
   // 本番ビルド時にconsole.logを自動削除
   compiler: {
@@ -16,6 +17,8 @@ const nextConfig = {
       exclude: ['error', 'warn'], // error/warnは残す
     } : false,
   },
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 };
 
 module.exports = withPWA(nextConfig);

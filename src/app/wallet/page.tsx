@@ -6,7 +6,10 @@ import { getMaticBalance, getTransactionHistory } from '@/lib/polygon/client';
 import { getJpycBalance } from '@/lib/polygon/jpyc';
 import { useRouter } from 'next/navigation';
 import QRCodeDisplay from '@/components/QRCodeDisplay';
+<<<<<<< HEAD
 import { isSessionValid } from '@/lib/crypto/session-crypto';
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
 export default function WalletPage() {
   const router = useRouter();
@@ -27,8 +30,13 @@ export default function WalletPage() {
 
       // 認証チェック
       const authenticated = sessionStorage.getItem('authenticated');
+<<<<<<< HEAD
       if (!authenticated || !isSessionValid()) {
         // 未認証またはセッション無効の場合、ウォレットの存在確認
+=======
+      if (!authenticated) {
+        // 未認証の場合、ウォレットの存在確認
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         const pinHash = await getPINHash();
         if (pinHash) {
           // ウォレットは存在するがPIN未入力
@@ -146,7 +154,25 @@ export default function WalletPage() {
           <div className="absolute bottom-10 left-4 w-12 h-12 bg-yellow-400 rounded-full opacity-50"></div>
         </div>
 
+<<<<<<< HEAD
 
+=======
+        {/* 重要な警告メッセージ */}
+        <div className="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-5 mb-6 shadow-lg">
+          <div className="flex items-start gap-3 mb-3">
+            <span className="material-symbols-outlined text-3xl text-yellow-600 flex-shrink-0">warning</span>
+            <div>
+              <h3 className="text-base font-bold text-yellow-800 mb-2">重要な注意</h3>
+              <p className="text-sm text-yellow-700 mb-3">
+                ブラウザのキャッシュや履歴を削除すると、ウォレットデータが消えます。
+              </p>
+              <p className="text-sm text-yellow-700 font-semibold">
+                必ずリカバリーフレーズを安全な場所に保存してください。
+              </p>
+            </div>
+          </div>
+        </div>
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
         {/* 残高カード */}
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-lg">
@@ -219,6 +245,7 @@ export default function WalletPage() {
           </button>
         </div>
 
+<<<<<<< HEAD
         {/* 重要な警告メッセージ */}
         <div className="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-5 mb-6 shadow-lg">
           <div className="flex items-start gap-3 mb-3">
@@ -235,6 +262,8 @@ export default function WalletPage() {
           </div>
         </div>
 
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         {/* 取引履歴 */}
         <div className="bg-white rounded-2xl p-6 shadow-lg">
           <h2 className="text-lg font-bold text-gray-800 mb-4">最近の取引</h2>

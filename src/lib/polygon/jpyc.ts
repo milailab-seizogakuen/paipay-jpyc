@@ -38,11 +38,17 @@ export async function getJpycBalance(address: string): Promise<number> {
     try {
         const balance = await jpycContract.balanceOf(address);
         return Number(ethers.formatUnits(balance, JPYC_DECIMALS));
+<<<<<<< HEAD
     } catch (error: any) {
         // エラーメッセージのみ抽出（機密情報を含まない）
         const safeErrorMessage = error?.message || 'Failed to get JPYC balance';
         console.error('Failed to get JPYC balance:', safeErrorMessage);
         throw new Error(safeErrorMessage);
+=======
+    } catch (error) {
+        console.error('Failed to get JPYC balance:', error);
+        throw error;
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
     }
 }
 
@@ -90,8 +96,16 @@ export async function sendJpyc(params: SendJpycParams): Promise<SendJpycResult> 
             throw new Error(`残高が不足しています（残高: ${balance} JPYC）`);
         }
 
+<<<<<<< HEAD
         // 送金額をWei単位に変換
         const amountInWei = ethers.parseUnits(amount.toString(), JPYC_DECIMALS);
+=======
+        // POL残高チェック（ガス代）
+        const polBalance = await polygonProvider.getBalance(fromAddress);
+        if (polBalance === BigInt(0)) {
+            throw new Error('ガス代（POL）が不足しています');
+        }
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
         // コントラクトインスタンス（署名者付き）
         const contractWithSigner = new ethers.Contract(
@@ -100,6 +114,7 @@ export async function sendJpyc(params: SendJpycParams): Promise<SendJpycResult> 
             wallet
         );
 
+<<<<<<< HEAD
         // ✅ ガス代を事前に見積もる
         try {
             const gasEstimate = await contractWithSigner.transfer.estimateGas(
@@ -138,6 +153,10 @@ export async function sendJpyc(params: SendJpycParams): Promise<SendJpycResult> 
             }
             console.warn('ガス見積もり失敗、処理を続行:', error.message);
         }
+=======
+        // 送金額をWei単位に変換
+        const amountInWei = ethers.parseUnits(amount.toString(), JPYC_DECIMALS);
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
         // トランザクション送信
         console.log('📝 トランザクション構築中...');
@@ -145,6 +164,7 @@ export async function sendJpyc(params: SendJpycParams): Promise<SendJpycResult> 
 
         console.log('⏳ トランザクション送信完了。マイニング待機中...', tx.hash);
 
+<<<<<<< HEAD
         // ✅ バックグラウンドで確認（ユーザーは待たない）
         tx.wait()
             .then((receipt: any) => {
@@ -168,6 +188,23 @@ export async function sendJpyc(params: SendJpycParams): Promise<SendJpycResult> 
         return {
             success: false,
             error: safeErrorMessage,
+=======
+        // トランザクション完了を待つ
+        const receipt = await tx.wait();
+
+        console.log('✅ トランザクション完了:', receipt.hash);
+
+        return {
+            success: true,
+            txHash: receipt.hash,
+            explorerUrl: `https://polygonscan.com/tx/${receipt.hash}`,
+        };
+    } catch (error: any) {
+        console.error('❌ JPYC送金エラー:', error);
+        return {
+            success: false,
+            error: error.message || 'トランザクション送信に失敗しました',
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         };
     }
 }

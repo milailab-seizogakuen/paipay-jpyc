@@ -4,12 +4,19 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PINInput from '@/components/PINInput';
 import { saveWallet } from '@/lib/keystore/storage';
+<<<<<<< HEAD
 import { encryptAndStoreSession } from '@/lib/crypto/session-crypto';
+=======
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
 
 export default function PINSetupPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
   const [step, setStep] = useState<'first' | 'confirm'>('first');
   const [firstPIN, setFirstPIN] = useState('');
   const [confirmPIN, setConfirmPIN] = useState('');
@@ -57,11 +64,20 @@ export default function PINSetupPage() {
 
     try {
       await saveWallet(address, mnemonic, pin);
+<<<<<<< HEAD
 
       // 成功したらウォレット画面へ
       // ✅ ランダムキーで暗号化してsessionStorageに保存
       await encryptAndStoreSession(address, mnemonic);
 
+=======
+      
+      // 成功したらウォレット画面へ
+      // sessionStorageに認証済みフラグとアドレス、mnemonicをセット
+      sessionStorage.setItem('authenticated', 'true');
+      sessionStorage.setItem('wallet_address', address);
+      sessionStorage.setItem('wallet_mnemonic', mnemonic);
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
       router.push('/wallet');
     } catch (error: any) {
       console.error('Failed to save wallet:', error);
@@ -85,7 +101,11 @@ export default function PINSetupPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         {/* ヘッダー */}
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -95,8 +115,13 @@ export default function PINSetupPage() {
             ウォレットを保護
           </h1>
           <p className="text-gray-600 text-sm">
+<<<<<<< HEAD
             {step === 'first'
               ? '4桁のPINを設定してください'
+=======
+            {step === 'first' 
+              ? '4桁のPINを設定してください' 
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
               : 'もう一度入力してください'
             }
           </p>

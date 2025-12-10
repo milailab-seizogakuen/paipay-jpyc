@@ -5,11 +5,18 @@ import { useRouter } from 'next/navigation';
 import PINInput from '@/components/PINInput';
 import { getPINHash, loadWallet } from '@/lib/keystore/storage';
 import { verifyPIN, isLocked, recordFailedAttempt, resetFailedAttempts, getFailedAttempts } from '@/lib/keystore/pin';
+<<<<<<< HEAD
 import { encryptAndStoreSession } from '@/lib/crypto/session-crypto';
 
 export default function PINLockPage() {
   const router = useRouter();
 
+=======
+
+export default function PINLockPage() {
+  const router = useRouter();
+  
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
@@ -53,16 +60,26 @@ export default function PINLockPage() {
 
       // PIN検証
       const isValid = await verifyPIN(inputPin, storedHash);
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
       if (isValid) {
         // 成功 - ウォレットを読み込んで認証状態をセット
         const wallet = await loadWallet(inputPin);
         if (wallet) {
           resetFailedAttempts();
+<<<<<<< HEAD
 
           // ✅ ランダムキーで暗号化してsessionStorageに保存
           await encryptAndStoreSession(wallet.address, wallet.mnemonic);
 
+=======
+          sessionStorage.setItem('authenticated', 'true');
+          sessionStorage.setItem('wallet_address', wallet.address);
+          sessionStorage.setItem('wallet_mnemonic', wallet.mnemonic);
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
           router.push('/wallet');
         } else {
           setError('ウォレットの読み込みに失敗しました');
@@ -73,14 +90,22 @@ export default function PINLockPage() {
         // 失敗
         const state = recordFailedAttempt();
         setFailedCount(state.failedAttempts);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         if (state.lockedUntil) {
           setError('PINが間違っています。ロックされました。');
           checkLockStatus();
         } else {
           setError('PINが間違っています');
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         setPin('');
         setIsVerifying(false);
       }
@@ -100,7 +125,11 @@ export default function PINLockPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
         {/* ヘッダー */}
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -112,8 +141,13 @@ export default function PINLockPage() {
             {locked ? 'ロック中' : 'PainAme P2P'}
           </h1>
           <p className="text-gray-600 text-sm">
+<<<<<<< HEAD
             {locked
               ? `${Math.floor(remainingSeconds / 60)}分${remainingSeconds % 60}秒後に再試行できます`
+=======
+            {locked 
+              ? `${Math.floor(remainingSeconds / 60)}分${remainingSeconds % 60}秒後に再試行できます` 
+>>>>>>> 532daf6575718948328ce94c9dd23d195774d3ea
               : 'PINを入力してください'
             }
           </p>
