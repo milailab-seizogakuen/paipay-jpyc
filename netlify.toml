@@ -1,0 +1,32 @@
+[build]
+  command = "npm run build"
+  # Next.jsプラグインを使う場合（推奨）
+  # プラグインが自動的に公開ディレクトリを処理します
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# もしプラグインが動作しない場合は、以下のコメントを外して
+# next.config.jsで output: 'export' を有効にしてください
+# [build]
+#   command = "npm run build"
+#   publish = "out"
+#
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
+
+# 環境変数はNetlifyダッシュボードで設定してください:
+# Site settings > Environment variables
+# 
+# 必要な環境変数:
+# - NEXT_PUBLIC_JPYC_ADDRESS=0xE7C3D8C9a439feDe00D2600032D5dB0Be71C3c29
+# - NEXT_PUBLIC_POLYGON_RPC_URL=https://polygon-rpc.com
+# - NEXT_PUBLIC_POLYGON_CHAIN_ID=137
+# - NEXT_PUBLIC_POLYGONSCAN_API_KEY=(オプション、トランザクション履歴用)
+
